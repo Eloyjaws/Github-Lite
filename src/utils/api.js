@@ -1,7 +1,7 @@
 // A simple data API to retrieve data from github
 import axios from 'axios';
-const CLIENT_ID = "028f3647cda256c9dd15";
-const CLIENT_SECRET = "09aaaced69180fff192a03904bdea03b1fa1a4b9";
+const CLIENT_ID = "";
+const CLIENT_SECRET = "";
 const Auth = (CLIENT_ID && CLIENT_SECRET) ? `?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}` : '';
 const GithubAPI = {
     getUserInfo: function(username) {
