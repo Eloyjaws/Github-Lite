@@ -47,6 +47,10 @@ function Followers({ match }) {
             </div>
           }
           {!error && data && ( <FollowersList followers={data} /> )}
+          {!error && !data.length && ( 
+            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '30vh'}}>
+              <h4 className="text-primary"> No followers found for {match.params.username} </h4>
+            </div> )}
         </>
       )}
     </div>
