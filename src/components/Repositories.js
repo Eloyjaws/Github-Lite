@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import * as moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeBranch, faStar, faCircle } from '@fortawesome/free-solid-svg-icons'
+import Message from './Message';
 import GithubAPI from '../utils/api';
 import { getRandomColor } from '../utils/helpers';
 
@@ -88,20 +89,13 @@ function Repositories({ match }) {
 
   return (
     <div>
-      {loading ? (
-        <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-          <h4 className="text-success">Loading ... </h4>
-        </div>
-      ) : (
+      { loading ? <Message /> : (
         <>
-          {error && 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-              <h4 className="text-danger">{error}</h4>
-            </div>
-          }
-          {!error && data && ( <RepoList repos={data} /> )}
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <RepoList repos={data} /> }
+          { !error && !data.length && <Message messageClass="text-primary" height="20vh" message={`${match.params.username} does not have any public repos yet`} /> }
         </>
-      )}
+      ) }
     </div>
   );
 }

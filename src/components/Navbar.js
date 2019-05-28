@@ -19,8 +19,10 @@ function Navbar({ history }) {
 
 
   const handleSearchInputFocus = () => {
-    inputEl.current.focus();
-    setShowNav(true);
+    if(!showNav){
+      setShowNav(true);
+      setTimeout(() => inputEl.current.focus(), 100);
+    }
     if(!isSearchInputFocused) {
       inputEl.current.blur();
       setShowNav(false)
@@ -60,12 +62,12 @@ function Navbar({ history }) {
             value={username}
             ref={inputEl}
             placeholder="Enter Username ..."
-            className="form-control"
+            className="form-control outline-gold"
             autoComplete="off"
             type="text"
             id="username"
           />
-          <button className="btn btn-info ml-md-2 my-2 my-sm-0" disabled={!username} type="submit">Search</button>
+          <button className="btn btn-warning ml-md-2 my-2 my-sm-0" disabled={!username} type="submit">Search</button>
         </form>
       </div>
     </nav>

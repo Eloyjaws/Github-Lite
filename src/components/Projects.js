@@ -1,11 +1,15 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import Message from './Message';
 
-function Projects({ match }) {
+function Projects({match}) {
   return (
-    <div className="d-flex pl-5 ml-5 mt-5 pt-5">
-      <h4>{match.params.username} does not have any projects yet. </h4>
-    </div>
+    <Message height="30vh" message={`${match.params.username} does not have any projects yet. `} />
   )
+}
+
+Projects.propTypes = {
+  match: PropTypes.object.isRequired
 }
 
 export default Projects;

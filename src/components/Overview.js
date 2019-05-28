@@ -2,11 +2,12 @@ import React, { useState, useEffect} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeBranch, faStar, faCircle } from '@fortawesome/free-solid-svg-icons'
 import GithubAPI from '../utils/api';
+import Message from './Message';
 import { getRandomColor } from '../utils/helpers';
 
 function Repo({repo}) {
   return (
-    <div className="card border-primary mb-3 mr-3" style={{minWidth: '300px', width: 'calc(50% - 16px)'}}>
+    <div className="card border-primary mb-3 mr-3 repo__card">
       <div className="card-body">
         <h6 className="card-title"><a href={repo.html_url}>{repo.name}</a></h6>
         <p className="card-text"><small>{repo.description}</small></p>
@@ -52,20 +53,13 @@ function Overview({ match }) {
 
   return (
     <div>
-      {loading ? (
-        <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-          <h4 className="text-success">Loading ... </h4>
-        </div>
-      ) : (
+      { loading ? <Message /> : (
         <>
-          {error && 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-              <h4 className="text-danger">{error}</h4>
-            </div>
-          }
-          {!error && data && ( <RepoList repos={data} /> )}
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <RepoList repos={data} /> }
+          { !error && !data.length && <Message messageClass="text-primary" height="30vh" message={`${match.params.username} does not have any public Repos`} /> }
         </>
-      )}
+      ) }
     </div>
   );
 }

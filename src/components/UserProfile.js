@@ -12,7 +12,7 @@ import Tabs from './Tabs';
 
 function UserProfile({data }) {
   return (
-    <div style={{position: "relative", left: '-16px', maxWidth: '100vw'}} className="w-100 px-4 mt-5 d-flex justify-content-between align-item flex-column flex-md-row">
+    <div style={{position: "relative", left: '-8px', maxWidth: '100vw'}} className="w-100 px-4 mt-5 d-flex justify-content-between flex-column flex-md-row">
       <div className="mr-md-5" style={{maxWidth: '320px'}}>
         <img width={300} src={data.avatar_url + '&s=300'} alt={data.login + " Avatar"} />
         <h3 className="mt-2">{data.name}</h3>

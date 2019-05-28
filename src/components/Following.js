@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import SecondaryUser from './SecondaryUser';
+import Message from './Message';
 import GithubAPI from '../utils/api';
 
 
@@ -35,20 +36,13 @@ function Following({ match }) {
 
   return (
     <div>
-      {loading ? (
-        <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-          <h4 className="text-success">Loading ... </h4>
-        </div>
-      ) : (
+      { loading ? <Message /> : (
         <>
-          {error && 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-              <h4 className="text-danger">{error}</h4>
-            </div>
-          }
-          {!error && data && ( <FollowingList following={data} /> )}
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <FollowingList following={data} /> }
+          { !error && !data.length && <Message messageClass="text-primary" height="30vh" message={`${match.params.username} is not following anyone`} /> }
         </>
-      )}
+      ) }
     </div>
   );
 }

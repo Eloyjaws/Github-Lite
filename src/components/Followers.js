@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import SecondaryUser from './SecondaryUser';
+import Message from './Message';
 import GithubAPI from '../utils/api';
 
 
@@ -35,24 +36,13 @@ function Followers({ match }) {
 
   return (
     <div>
-      {loading ? (
-        <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-          <h4 className="text-success">Loading ... </h4>
-        </div>
-      ) : (
+      { loading ? <Message /> : (
         <>
-          {error && 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-              <h4 className="text-danger">{error}</h4>
-            </div>
-          }
-          {!error && data && ( <FollowersList followers={data} /> )}
-          {!error && !data.length && ( 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '30vh'}}>
-              <h4 className="text-primary"> No followers found for {match.params.username} </h4>
-            </div> )}
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <FollowersList followers={data} /> }
+          { !error && !data.length && <Message messageClass="text-primary" height="30vh" message={`No followers found for ${match.params.username}`} /> }
         </>
-      )}
+      ) }
     </div>
   );
 }

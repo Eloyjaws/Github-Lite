@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GithubAPI from "../utils/api";
 import UserProfile from "../components/UserProfile";
+import Message from '../components/Message';
 
 function User({ match }) {
   const [data, setData] = useState(null);
@@ -24,16 +25,12 @@ function User({ match }) {
 
   return (
     <div>
-      <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-        {loading ? (
-          <h4 className="text-success">Loading ... </h4>
-        ) : (
-          <>
-            {error && <h4 className="text-danger">{error}</h4>}
-            {!error && data && ( <UserProfile data={data} /> )}
-          </>
-        )}
-      </div>
+      { loading ? <Message height="80vh" /> : (
+        <>
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <UserProfile data={data} /> }
+        </>
+      ) }
     </div>
   );
 }

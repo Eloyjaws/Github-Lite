@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Message({messageClass="text-success", message = "Loading...", height = '80vh'}) {
+function Message({messageClass="text-success", message = "Loading...", height = '60vh'}) {
     return (
         <div className="container d-flex justify-content-center align-items-center" style={{minHeight: height}}>
-            <h4 className={messageClass}>Loading ... </h4>
+            <h4 className={messageClass}> {message} </h4>
         </div>
     )
 }

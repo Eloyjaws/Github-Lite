@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from "react";
 import * as moment from 'moment';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCodeBranch, faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCodeBranch, faStar } from '@fortawesome/free-solid-svg-icons';
+import Message from './Message';
 import GithubAPI from '../utils/api';
 
 function Repo({repo}) {
@@ -28,10 +29,12 @@ function Repo({repo}) {
 }
 
 function RepoList({repos}) {
+  const starredRepos = repos.filter(repo => repo.stargazers_count > 0);
   return (
     <div>
       <h6 className="mt-4 ml-3"><small>REPOSITORIES</small></h6>
-      {repos.filter(repo => repo.stargazers_count > 0).map((repo, i) => <Repo key={i} repo={repo} />)}
+        {!starredRepos.length && <Message messageClass="text-primary" height="30vh" message={`No starred Repos`} />}
+        {starredRepos.length ? starredRepos.map((repo, i) => <Repo key={i} repo={repo} />) : null}
       <hr className="my-4" />
     </div>
   );
@@ -60,20 +63,12 @@ function Stars({ match }) {
 
   return (
     <div>
-      {loading ? (
-        <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-          <h4 className="text-success">Loading ... </h4>
-        </div>
-      ) : (
+      { loading ? <Message /> : (
         <>
-          {error && 
-            <div className="container d-flex justify-content-center align-items-center" style={{minHeight: '80vh'}}>
-              <h4 className="text-danger">{error}</h4>
-            </div>
-          }
-          {!error && data && ( <RepoList repos={data} /> )}
+          { error && <Message messageClass="text-danger" message={error} /> }
+          { !error && data && <RepoList repos={data} /> }
         </>
-      )}
+      ) }
     </div>
   );
 }
